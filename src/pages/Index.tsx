@@ -1,5 +1,6 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
-import { Loader } from 'lucide-react';
+import LoadingScreen from '@/components/LoadingScreen';
+import SectionLoader from '@/components/SectionLoader';
 
 // Lazy load components with React.lazy for code splitting
 const Navigation = lazy(() => import('@/components/Navigation'));
@@ -10,15 +11,7 @@ const Gallery = lazy(() => import('@/components/Gallery'));
 const BookingForm = lazy(() => import('@/components/BookingForm'));
 const Footer = lazy(() => import('@/components/Footer'));
 
-// Loading component for lazy loaded components
-const SectionLoader = ({ height = 'h-96' }) => (
-  <div className={`w-full ${height} flex items-center justify-center bg-gradient-to-b from-amber-50 to-orange-50`}>
-    <div className="text-center">
-      <Loader className="animate-spin h-8 w-8 text-amber-500 mx-auto" />
-      <p className="mt-2 text-amber-700">Loading...</p>
-    </div>
-  </div>
-);
+
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -126,18 +119,7 @@ const Index = () => {
 
   // Loading screen
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-amber-50 to-orange-50">
-        <div className="text-center">
-          <div className="relative">
-            <div className="w-24 h-24 border-4 border-amber-200 rounded-full animate-pulse"></div>
-            <div className="absolute top-0 left-0 w-24 h-24 border-4 border-transparent border-t-amber-500 rounded-full animate-spin"></div>
-          </div>
-          <h2 className="mt-6 text-2xl font-bold text-amber-900 font-serif">Waffle House</h2>
-          <p className="mt-2 text-amber-700">Loading delicious waffles...</p>
-        </div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (
